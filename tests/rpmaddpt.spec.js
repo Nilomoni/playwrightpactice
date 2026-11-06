@@ -1,0 +1,44 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://rpm-uat.empwr.life/login');
+  await page.getByRole('textbox', { name: 'Enter your username or email' }).click();
+  await page.getByRole('textbox', { name: 'Enter your username or email' }).fill('nilomoni.bhattacherjee@empwr.life');
+  await page.getByRole('textbox', { name: 'Enter your password' }).fill('Test@1234');
+  await page.getByRole('button', { name: 'Log In' }).click();
+  await page.getByRole('radio', { name: 'wellnessconnection uat(TDEM)' }).check();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('link', { name: 'Manage Patients' }).click();
+  await page.getByRole('button', { name: 'Add Patient add' }).click();
+  await page.getByRole('textbox', { name: 'First Name*' }).click();
+  await page.getByRole('textbox', { name: 'First Name*' }).fill('Newpt');
+  await page.getByRole('textbox', { name: 'Last Name*' }).fill('06nov');
+  await page.getByRole('radio', { name: 'Male', exact: true }).check();
+  await page.getByRole('textbox', { name: 'Date of Birth' }).fill('1992-01-28');
+  await page.getByRole('textbox', { name: 'Patient ID' }).click();
+  await page.getByRole('textbox', { name: 'Patient ID' }).fill('new06nov');
+  await page.getByRole('textbox', { name: 'Enter email' }).click();
+  await page.getByRole('textbox', { name: 'Enter email' }).fill('new06nov@test.com');
+  await page.getByRole('textbox', { name: 'Provider\'s Name* Select' }).click();
+  //search the provider
+  await page.getByRole('textbox', { name: 'Provider\'s Name* Select' }).fill('nilomoni');
+  await page.getByText('Nilomoni BhattacherjeeNilomoni Provider NEwNilomoni Wellness Provider').click();
+  await page.getByText('Aditya Agarwal').first().click();
+  await page.getByText('Patient InformationContact & Chronic ConditionsInsuranceclose First Name*Middle').click();
+  await page.getByRole('textbox', { name: 'Vitals' }).click();
+  await page.getByText('WeightBlood PressureBlood').click();
+  await page.getByText('Blood Pressure').click();
+  await page.getByText('Patient InformationContact & Chronic ConditionsInsuranceclose First Name*Middle').click();
+  await page.getByRole('button', { name: 'Contact & Chronic Conditions' }).click();
+  await page.getByRole('textbox', { name: 'Address' }).click();
+  await page.getByRole('textbox', { name: 'Address' }).click();
+  await page.getByRole('textbox', { name: 'Address' }).fill('Test Address');
+  await page.getByRole('textbox', { name: 'City' }).click();
+  await page.getByRole('textbox', { name: 'City' }).fill('California');
+  await page.getByLabel('State').selectOption('Florida');
+  await page.getByRole('textbox', { name: 'Zip Code' }).click();
+  await page.getByRole('textbox', { name: 'Zip Code' }).fill('11223');
+  await page.getByRole('button', { name: 'Insurance' }).click();
+  await page.getByRole('textbox', { name: 'Insurance Name' }).click();
+  await page.getByRole('button', { name: 'Save' }).click();
+});
