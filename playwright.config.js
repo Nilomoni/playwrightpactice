@@ -1,11 +1,11 @@
 
-// @ts-check
+ // @ts-check
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
 
-  fullyParallel: true,
+  fullyParallel: false,
 
   forbidOnly: !!process.env.CI,
 
@@ -13,7 +13,19 @@ export default defineConfig({
 
   workers: process.env.CI ? 1 : undefined,
 
-  reporter: 'html',
+  reporter: [
+    ['list'],
+    ['html', {
+      outputFolder: 'playwright-report',
+      open: 'never'
+    }],
+    ['junit', {
+      outputFile: 'test-results/junit.xml'
+    }],
+    ['json', {
+      outputFile: 'test-results/results.json'
+    }]
+  ],
 
   // Global settings
   use: {
@@ -37,14 +49,14 @@ export default defineConfig({
 
     // Firefox - Default settings
     {
-  name: 'firefox',
-  use: {
-    launchOptions: {
-      args: ['--width=1920', '--height=1080'],
+      name: 'firefox',
+      use: {
+        launchOptions: {
+          args: ['--width=1920', '--height=1080'],
+        },
+        viewport: null,
+      },
     },
-    viewport: null,
-  },
-},
 
     // WebKit - Default settings
     {
@@ -55,5 +67,4 @@ export default defineConfig({
     },
 
   ],
-
 });
